@@ -1,4 +1,6 @@
-﻿namespace SimpleStudentManagementProjectCSharpProject1
+﻿using System.Diagnostics.Tracing;
+
+namespace SimpleStudentManagementProjectCSharpProject1
 {
     internal class Program
     {
@@ -7,7 +9,7 @@
         static string[] names = new string[10];
         static DateTime[] dates = new DateTime[10];
         static int StudentCounter = 0;
-
+        static int MaxLimit = 10;
         static void Main(string[] args) 
        
 
@@ -49,7 +51,18 @@
         }
         static void AddStudent()
         {
+            if (StudentCounter >= MaxLimit)
+            {
+                Console.WriteLine("You Reached Maximum Limit");
+                return;
+            }
+            Console.WriteLine("Enter Student's Name: ");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter Student's Age: ");
+            int ages = int.Parse(Console.ReadLine());
 
+
+        
         } 
         static void ViewAllStudents()
         {
