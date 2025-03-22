@@ -72,12 +72,12 @@ namespace SimpleStudentManagementProjectCSharpProject1
                 return;
             }
 
-            names[studentCount] = name;
-            ages[studentCount] = age;
-            marks[studentCount] = mark;
-            enrollmentDates[studentCount] = DateTime.Now;
+            names[StudentCounter] = name;
+            ages[StudentCounter] = age;
+            marks[StudentCounter] = mark;
+            enrollmentDates[StudentCounter] = DateTime.Now;
 
-            studentCount++;
+            StudentCounter++;
             Console.WriteLine("Student added successfully!");
         
         } 
@@ -85,7 +85,7 @@ namespace SimpleStudentManagementProjectCSharpProject1
         static void ViewAllStudents()
         {
             Console.WriteLine("Students List:");
-            for (int i = 0; i < studentCount; i++)
+            for (int i = 0; i < StudentCounter; i++)
             {
                 Console.WriteLine($"{i + 1}. Name: {names[i]}, Age: {ages[i]}, Marks: {marks[i]:F2}, Enrollment Date: {enrollmentDates[i]}");
             }
@@ -96,7 +96,7 @@ namespace SimpleStudentManagementProjectCSharpProject1
             Console.Write("Enter name to search: ");
             string searchName = Console.ReadLine().ToLower();
 
-            for (int i = 0; i < studentCount; i++)
+            for (int i = 0; i < StudentCounter; i++)
             {
                 if (names[i].ToLower() == searchName)
                 {
