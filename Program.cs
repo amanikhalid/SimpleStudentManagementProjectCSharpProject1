@@ -10,11 +10,10 @@ namespace SimpleStudentManagementProjectCSharpProject1
         static DateTime[] dates = new DateTime[10];
         static int StudentCounter = 0;
         static int MaxLimit = 10;
+
+        
         static void Main(string[] args) 
-       
-
         {
-
             while (true)
             {
                 Console.Clear();
@@ -43,12 +42,11 @@ namespace SimpleStudentManagementProjectCSharpProject1
                     default: Console.WriteLine("Invalid choice! Try again."); break;
 
                 }
-                Console.ReadLine(); 
-
                 
             }
             
         }
+        
         static void AddStudent()
         {
             if (StudentCounter >= MaxLimit)
@@ -60,10 +58,30 @@ namespace SimpleStudentManagementProjectCSharpProject1
             string name = Console.ReadLine();
             Console.WriteLine("Enter Student's Age: ");
             int ages = int.Parse(Console.ReadLine());
+            if (age <= 21)
+            {
+                Console.WriteLine("Invalid age. Student must be older than 21.");
+                return;
+            }
 
+            Console.Write("Enter marks (0-100): ");
+            double mark = double.Parse(Console.ReadLine());
+            if (mark < 0 || mark > 100)
+            {
+                Console.WriteLine("Invalid marks. Must be between 0 and 100.");
+                return;
+            }
 
+            names[studentCount] = name;
+            ages[studentCount] = age;
+            marks[studentCount] = mark;
+            enrollmentDates[studentCount] = DateTime.Now;
+
+            studentCount++;
+            Console.WriteLine("Student added successfully!");
         
         } 
+        
         static void ViewAllStudents()
         {
 
