@@ -84,12 +84,16 @@ namespace SimpleStudentManagementProjectCSharpProject1
         
         static void ViewAllStudents()
         {
-
-
+            Console.WriteLine("Students List:");
+            for (int i = 0; i < studentCount; i++)
+            {
+                Console.WriteLine($"{i + 1}. Name: {names[i]}, Age: {ages[i]}, Marks: {marks[i]:F2}, Enrollment Date: {enrollmentDates[i]}");
+            }
         }
+        
         static void FindStudent()
         {
-
+            
         }
         static void CalculateAverage()
         {
