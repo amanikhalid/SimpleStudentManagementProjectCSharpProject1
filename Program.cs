@@ -93,8 +93,21 @@ namespace SimpleStudentManagementProjectCSharpProject1
         
         static void FindStudent()
         {
+            Console.Write("Enter name to search: ");
+            string searchName = Console.ReadLine().ToLower();
+
+            for (int i = 0; i < studentCount; i++)
+            {
+                if (names[i].ToLower() == searchName)
+                {
+                    Console.WriteLine($"Found: Name: {names[i]}, Age: {ages[i]}, Marks: {marks[i]:F2}, Enrollment Date: {enrollmentDates[i]}");
+                    return;
+                }
+            }
             
+            Console.WriteLine("Student not found.");
         }
+        
         static void CalculateAverage()
         {
 
