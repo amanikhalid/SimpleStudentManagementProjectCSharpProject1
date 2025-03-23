@@ -27,7 +27,7 @@ namespace SimpleStudentManagementProjectCSharpProject1
                 Console.WriteLine("7. Delete a student record: ");
                 Console.WriteLine("8. Exit:");
 
-                Console.WriteLine("Choose your choice :");
+                Console.WriteLine("Choose a Number :");
                 int choice = int.Parse(Console.ReadLine());
 
                 switch (choice)
@@ -276,6 +276,9 @@ namespace SimpleStudentManagementProjectCSharpProject1
         
             static void DeleteRecord()
             {
+          
+           
+
                 Console.Write("Enter student name to delete: ");
                 string deleteName = Console.ReadLine().ToLower();
                 int index = -1;
