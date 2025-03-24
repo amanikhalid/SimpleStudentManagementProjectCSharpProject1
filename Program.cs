@@ -16,6 +16,7 @@ namespace SimpleStudentManagementProjectCSharpProject1
         {
             while (true)
             {
+                //Menu System
                 Console.Clear();
                 Console.WriteLine("\nChoose an Operation:");
                 Console.WriteLine("1. Add a new student record ");
@@ -50,22 +51,27 @@ namespace SimpleStudentManagementProjectCSharpProject1
 
         }
 
+        //Add a new student record (Name, Age, Marks)
         static void AddStudent()
         {
 
             char doAgain;
             do
             {
+                //ask user for  number of student.
                 Console.WriteLine("Enter Number of Students : ");
                 int numberOfStudents = int.Parse(Console.ReadLine());
-
-                if (numberOfStudents + StudentCounter <= MaxLimit) // sum of numberOfStudent,StudentConter less then or equal 
+                // check the total student if less than or equal the maxStudent (10).
+                if (numberOfStudents + StudentCounter <= MaxLimit) // sum of numberOfStudent,StudentConter less than or equal 
                 {
+                    // start looping from student counter until the total of  student counter and number of student witch the user entered 
                     for (int i = StudentCounter; i < StudentCounter + numberOfStudents; i++)
                     {
+                        //ask for student name
                         Console.WriteLine("Enter Student's Name: ");
                         names[i] = Console.ReadLine();
 
+                        //keep ask user for student marks until the user take number in range of (0-100).
                         do
                         {
                             Console.WriteLine("Enter Student's Age: ");
@@ -76,7 +82,7 @@ namespace SimpleStudentManagementProjectCSharpProject1
                             }
                         } while (Ages[i] <= 21);
 
-
+                        //keep ask user for student Ages until the user take number less than 21.
                         do
                         {
                             Console.Write("Enter marks (0-100): ");
@@ -88,7 +94,7 @@ namespace SimpleStudentManagementProjectCSharpProject1
                         } while (marks[i] < 0 || marks[i] > 100);
 
 
-
+                        //insert date direct in dates array.
                         dates[i] =DateTime.Now;
                         Console.WriteLine("Student added Successfully");
                     }
@@ -99,12 +105,12 @@ namespace SimpleStudentManagementProjectCSharpProject1
 
 
                 }
-                else if (StudentCounter == MaxLimit)
+                else if (StudentCounter == MaxLimit) //Maximum number of students reached
                 {
                     Console.WriteLine("You Reached Maximum Limit");
 
                 }
-                else // remaining space less then number of student 
+                else // remaining space is less than the number of students 
                 {
                     Console.WriteLine($"Invalid Input ,  the remaining space is {MaxLimit - StudentCounter} ");
                 }
@@ -118,202 +124,230 @@ namespace SimpleStudentManagementProjectCSharpProject1
 
         }
 
+        //View all students (names,Ages, marks enrollment date)
         static void ViewAllStudents()
         {
             //Console.WriteLine("Students List:");
-           
 
 
 
-            if(StudentCounter == 0)
+
+            if (StudentCounter == 0)
             {
                 Console.WriteLine("No student found");
             }
-            else
+            else // show the student detailes from all arrays.
             {
-                for (int i = 0; i < StudentCounter; i++)
                 {
-                    //Console.WriteLine($"{i + 1}. Name: {names[i]}, Age: {Ages[i]}, Marks: {marks[i]:F2}, Enrollment Date: {dates[i]}");
-
-
-                    Console.WriteLine(names[i]);
-                    Console.WriteLine(Ages[i]);
-                    Console.WriteLine(marks[i]);
-                    Console.WriteLine(dates[i]);
-                }
-            }
-        }
-
-        static void FindStudent()
-        {
-            bool found;
-            do
-            {
-                Console.Write("Enter name to search: ");
-                string searchName = Console.ReadLine().ToLower();
-                found=false;
-                for (int i = 0; i < StudentCounter; i++)
-                {
-                    if (names[i].ToLower() == searchName)
+                    for (int i = 0; i < StudentCounter; i++)
                     {
+                        //Console.WriteLine($"{i + 1}. Name: {names[i]}, Age: {Ages[i]}, Marks: {marks[i]:F2}, Enrollment Date: {dates[i]}");
+
+
                         Console.WriteLine(names[i]);
                         Console.WriteLine(Ages[i]);
                         Console.WriteLine(marks[i]);
                         Console.WriteLine(dates[i]);
-                        found=true;
-                        break;
                     }
-                    
                 }
-                if (!found)
-                {
-                   
-                        Console.WriteLine("Student not found.");
-                    
-                }
-
-
-                
-            } while (!found);
+            }
         }
 
+        //Find a student by name
+            static void FindStudent()
+            {
+                bool found; // flag to know if there is a result or not
+            do // keep asking user for name until found.
+            {
+                //ask user for student name.
+                Console.Write("Enter name to search: ");
+                    string searchName = Console.ReadLine().ToLower();
+                    found=false; //initialize found
+                for (int i = 0; i < StudentCounter; i++)
+                    {
+                        if (names[i].ToLower() == searchName) //compar between user entered name and the name in array (if they match)
+                    {//show the students detailes
+                        Console.WriteLine(names[i]);
+                            Console.WriteLine(Ages[i]);
+                            Console.WriteLine(marks[i]);
+                            Console.WriteLine(dates[i]);
+                            found=true;
+                            break;
+                        }
 
+                    }
+                    if (!found) //Show "Not found. Try again." if names are not match
+                {
+
+                        Console.WriteLine("Student not found.");
+
+                    }
+
+
+
+                } while (!found);
+            }
+
+        //Calculate the class average
         static void CalculateAverage()
         {
 
-            if (StudentCounter == 0)
+        
+            
+
+                if (StudentCounter == 0) // if student counter == 0 show massege "No student record found.".
             {
-                Console.WriteLine("No students available to calculate average.");
-            }
-            else
-            {
-                double totalMarks = 0;
-                for (int i = 0; i < StudentCounter; i++)
-                {
-                    totalMarks += marks[i];
+                    Console.WriteLine("No students available to calculate average.");
                 }
-                double average = Math.Round(totalMarks / StudentCounter, 2);
-                Console.WriteLine($"Class Average Marks: {average}");
-            }
-
-        }
-        static void FindTopPerformance()
-        {
-            if (StudentCounter == 0)
-            {
-                Console.WriteLine("No students available!");
-                
-            }
-            int topIndex = 0;
-
-            for (int i = 1; i < StudentCounter; i++)
-            {
-                if (marks[i] > marks[topIndex])
+                else
                 {
-                    topIndex = i;
-                }
-            }
-
-            Console.WriteLine("\nTop Performing Student:");
-            Console.WriteLine($"Name: {names[topIndex]}");
-            Console.WriteLine($"Age: {Ages[topIndex]}");
-            Console.WriteLine($"Marks: {marks[topIndex]}");
-            Console.WriteLine($"Dates: {dates[topIndex]}");
-        }
-        static void SortByMarks()
-        {
-
-             double[] SortedMarks = new double[StudentCounter];
-             int[] SortedAges = new int[StudentCounter];
-             string[] SortedNames = new string[StudentCounter];
-             DateTime[] SortedDates = new DateTime[StudentCounter];
-
-            for( int i =0; i<StudentCounter; i++)
-            {
-                SortedNames[i]=names[i];
-                SortedAges[i]=Ages[i];
-                SortedMarks[i]=marks[i];
-                SortedDates[i]=dates[i];
-            }
-
-
-           
-                for (int i = 0; i < StudentCounter - 1; i++)
-                {
-                    for (int j = i + 1; j < StudentCounter; j++)
+                    double totalMarks = 0; //Declare and initialize sum
+                for (int i = 0; i < StudentCounter; i++) 
                     {
-                        if (SortedMarks[i] < SortedMarks[j])
-                        {
+                        totalMarks += marks[i];
+                    }
+                    double average = Math.Round(totalMarks / StudentCounter, 2);
+                    Console.WriteLine($"Class Average Marks: {average}");
+                }
 
+            }
+
+            static void FindTopPerformance()
+            {
+                if (StudentCounter == 0) // if student counter == 0 show massege "No student record found.".
+            {
+                    Console.WriteLine("No students available!");
+
+                }
+                int topIndex = 0; //Declare and initialize topIndex to store the index of the highest student mark (topIndex =0)
+
+            for (int i = 1; i < StudentCounter; i++) //start looping from 1 until reach all student that are available in array
+            {
+                    if (marks[i] > marks[topIndex]) // compare between the first mark i=1 with marks[topIndex] (topIndex = 0)
+                {
+                        topIndex = i; // take the large mark index
+                }
+                }
+            //show the top-performing students detailes 
+
+                Console.WriteLine("\nTop Performing Student:");
+                Console.WriteLine($"Name: {names[topIndex]}");
+                Console.WriteLine($"Age: {Ages[topIndex]}");
+                Console.WriteLine($"Marks: {marks[topIndex]}");
+                Console.WriteLine($"Dates: {dates[topIndex]}");
+            }
+         //Sort students by marks (Descending Order)
+            static void SortByMarks()
+            {
+            //Declare new arrays to sort data 
+
+                double[] SortedMarks = new double[StudentCounter];
+                int[] SortedAges = new int[StudentCounter];
+                string[] SortedNames = new string[StudentCounter];
+                DateTime[] SortedDates = new DateTime[StudentCounter];
+
+                for (int i = 0; i<StudentCounter; i++)//start looping from 0 until reach all student that are available in array
+               
+                {
+                    SortedNames[i]=names[i];
+                    SortedAges[i]=Ages[i];
+                    SortedMarks[i]=marks[i];
+                    SortedDates[i]=dates[i];
+                }
+
+
+
+                for (int i = 0; i < StudentCounter - 1; i++) //start looping from 0 until reach all student that are available in array
+                {
+                    for (int j = i + 1; j < StudentCounter; j++) //start looping from 1 until reach all student that are available in array to compare
+                    {
+                        if (SortedMarks[i] < SortedMarks[j]) //Compare the first index with the second index start from sortedMarks[0] < sortedMarks[1]
+                        {
+                            //swap marks
                             double tempMark = SortedMarks[i];
                             SortedMarks[i] = SortedMarks[j];
                             SortedMarks[j] = tempMark;
 
+                            //swap names
                             string tempName = SortedNames[i];
                             SortedNames[i] = SortedNames[j];
                             SortedNames[j] = tempName;
 
+                            //swap ages
                             int tempAge = SortedAges[i];
                             SortedAges[i] = SortedAges[j];
                             SortedAges[j] = tempAge;
 
+                            //swap enrpllment dates
                             DateTime tempDate = SortedDates[i];
                             SortedDates[i] = SortedDates[j];
                             SortedDates[j] = tempDate;
                         }
                     }
                 }
-                
+
                 Console.WriteLine("Students sorted by marks:");
-                for (int i = 0; i < StudentCounter; i++)
+                for (int i = 0; i < StudentCounter; i++) //start looping from 0 until reach all student that are available in array to view the sorted arrays
                 {
-                Console.WriteLine(SortedNames[i]);
-                Console.WriteLine(SortedMarks[i]);
-                Console.WriteLine(SortedAges[i]);
-                Console.WriteLine(SortedDates[i]);
+                    Console.WriteLine(SortedNames[i]);
+                    Console.WriteLine(SortedMarks[i]);
+                    Console.WriteLine(SortedAges[i]);
+                    Console.WriteLine(SortedDates[i]);
+                }
             }
-            }
-        
+
             static void DeleteRecord()
             {
-          
-           
-
-                Console.Write("Enter student name to delete: ");
-                string deleteName = Console.ReadLine().ToLower();
-                int index = -1;
-
-                for (int i = 0; i < StudentCounter; i++)
+                int indexToDelete;// declare variable indexToDelete 
+                do // keep asking user for name to deleted until found.
                 {
-                    if (names[i].ToLower() == deleteName)
+                    Console.Write("Enter student name to delete: ");
+                    string deleteName = Console.ReadLine();
+                    deleteName.ToLower(); //convert the user input to lowercase
+
+                    indexToDelete = -1;  //initialize 
+                    for (int i = 0; i < StudentCounter; i++)//start looping from 0 until reach all student that are available in array
                     {
-                        index = i;
-                        break;
+                        string LowerNames = names[i].ToLower();//convert the names in names array to lowercase
+                        if (LowerNames == deleteName)
+                        {
+                            indexToDelete = i; //assign index of name in indexToDelete
+
+                        }
+                        else  //(indexToDelete == -1)
+                        {
+                            Console.WriteLine("Student not found.");
+
+                        }
                     }
-                }
-                if (index == -1)
+
+
+
+                } while (indexToDelete == -1);
+
+
+
+                for (int i = indexToDelete; i < StudentCounter - 1; i++) //start looping from indexToDelete until (reach all student that are available in array -1)
                 {
-                    Console.WriteLine("Student not found.");
-                }
-                else
-                {
-
-                    for (int i = index; i < StudentCounter - 1; i++)
-                    {
-                        names[i] = names[i + 1];
-                        Ages[i] = Ages[i + 1];
-                        marks[i] = marks[i + 1];
-                    }
-                    StudentCounter--;
-                    Console.WriteLine("Student deleted successfully.");
+                    // Shift all elements to left
+                    names[i] = names[i + 1];
+                    Ages[i] = Ages[i + 1];
+                    marks[i] = marks[i + 1];
+                    dates[i] = dates[i + 1];
                 }
 
-
-
+                StudentCounter = StudentCounter - 1; //decrese  Student Counter by 1
+                Console.WriteLine("Student deleted successfully.");
 
             }
-        
-       
-    
+
+
+
+
     }
+
+
+
 }
+    
+
